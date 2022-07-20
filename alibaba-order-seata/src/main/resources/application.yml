@@ -1,0 +1,55 @@
+server:
+  port: 10003
+spring:
+  application:
+    name: order-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.138.208.107:3306/seata_order?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
+    username: admin
+    password: '!Abc1234'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      min-idle: 0
+      max-active: 10
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 5000
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 43.138.208.107:8846
+        namespace: public
+        username: nacos
+        password: nacos
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  type-aliases-package: com.example.order.dao
+  mapper-locations: classpath:/mapper/*-mapper.xml
+seata:
+  tx-service-group: GuangZhou   #配置事务分组
+  registry:
+    #配置 seata 的注册中心，告诉 seata client 怎么连接 seata server(TC)
+    type: nacos
+    nacos:
+      server-addr: 43.138.208.107:8846  # seata server 所在的 nacos 服务地址
+      application: seata-server   # seata server 的服务名
+      namespace: c411c88f-608d-4b4c-9715-bda9e3c516d2
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  config:
+    # 用于读取 seata 配置信息
+    type: nacos
+    nacos:
+      server-addr: 43.138.208.107:8846
+      namespace: c411c88f-608d-4b4c-9715-bda9e3c516d2
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+#      data-id: seata.properties

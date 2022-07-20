@@ -1,0 +1,26 @@
+server:
+  port: 10001
+spring:
+  application:
+    name: order-seata
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.138.208.107:3306/seata_order?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
+    username: admin
+    password: '!Abc1234'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      min-idle: 0
+      max-active: 10
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 5000
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  type-aliases-package: com.example.order.dao
+  mapper-locations: classpath:/mapper/*-mapper.xml

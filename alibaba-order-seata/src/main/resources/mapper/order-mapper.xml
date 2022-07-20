@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.OrderMapper">
+    <insert id="insert" parameterType="OrderDAO">
+        INSERT INTO `order_tbl`(`product_id`,`total_amount`,`status`)
+        VALUES(#{productId},#{totalAmount},#{status})
+    </insert>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM `order_tbl`
+        WHERE `id`=#{id}
+    </delete>
+
+</mapper>
