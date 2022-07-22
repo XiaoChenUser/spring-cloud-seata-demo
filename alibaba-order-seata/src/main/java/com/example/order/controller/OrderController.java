@@ -20,13 +20,7 @@ import java.util.Map;
 public class OrderController {
     private final OrderService orderService;
     private final StockService stockService;
-//    public final RestTemplate restTemplate;
 
-//    @Autowired
-//    public OrderController(OrderService orderService, RestTemplate restTemplate) {
-//        this.orderService = orderService;
-//        this.restTemplate = restTemplate;
-//    }
 
     @Autowired
     public OrderController(OrderService orderService, StockService stockService) {

@@ -5,7 +5,7 @@ spring:
     name: order-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://43.138.208.107:3306/seata_order?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
+    url: jdbc:mysql://43.138.208.107:3306/seata_order?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true&rewriteBatchedStatements=true
     username: admin
     password: '!Abc1234'
     type: com.alibaba.druid.pool.DruidDataSource
@@ -27,17 +27,15 @@ spring:
         namespace: public
         username: nacos
         password: nacos
-mybatis:
-  config-location: classpath:mybatis-config.xml
-  type-aliases-package: com.example.order.dao
-  mapper-locations: classpath:/mapper/*-mapper.xml
+
 seata:
-  tx-service-group: GuangZhou   #配置事务分组
+  tx-service-group: GuangZhou123   #配置事务分组
+  data-source-proxy-mode: AT    # default: AT 模式
   registry:
     #配置 seata 的注册中心，告诉 seata client 怎么连接 seata server(TC)
     type: nacos
     nacos:
-      server-addr: 43.138.208.107:8846  # seata server 所在的 nacos 服务地址
+      server-addr: 43.138.208.107:8846 # seata server 所在的 nacos 服务地址
       application: seata-server   # seata server 的服务名
       namespace: c411c88f-608d-4b4c-9715-bda9e3c516d2
       group: SEATA_GROUP
@@ -52,4 +50,9 @@ seata:
       group: SEATA_GROUP
       username: nacos
       password: nacos
-#      data-id: seata.properties
+      data-id: "seataServer.properties"
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  type-aliases-package: com.example.order.dao
+  mapper-locations: classpath:/mapper/*-mapper.xml
