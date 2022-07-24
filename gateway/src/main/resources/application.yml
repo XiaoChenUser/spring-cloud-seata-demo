@@ -1,0 +1,28 @@
+server:
+  port: 10005
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:        #路由规则
+        - id: order-route   #路由的唯一标识，路由到哪个服务，命名就与哪个服务相关
+          uri: lb://order-service    # lb 指按照服务名从 nacos 注册中心获取服务地址，并遵循负载均衡策略
+          predicates:
+            - Path=/order-serv/**
+              #接收到：http://localhost:10005/order-serv/order/add
+              #路由到：http://order-service/order-serv/order/add
+          filters:
+            - StripPrefix=1   #转发之前去掉第一层路径
+              # http://order-service/order/add
+        - id: stock-route
+          uri: lb://stock-service
+          predicates:
+            - Path=/stock-serv/**
+          filters:
+            - StripPrefix=1
+    nacos:
+      discovery:
+        server-addr: 43.138.208.107:8846
+        username: nacos
+        password: nacos
