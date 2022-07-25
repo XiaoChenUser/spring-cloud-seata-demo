@@ -11,16 +11,22 @@ spring:
           predicates:
             - Path=/order-serv/**
               #接收到：http://localhost:10005/order-serv/order/add
-              #路由到：http://order-service/order-serv/order/add
+            #路由到：http://order-service/order-serv/order/add
           filters:
             - StripPrefix=1   #转发之前去掉第一层路径
-              # http://order-service/order/add
+            # http://order-service/order/add
         - id: stock-route
           uri: lb://stock-service
           predicates:
-            - Path=/stock-serv/**
+            - Path=/stock-serv/**   #Shortcut Configuration: PathRoutePredicateFactory
+            - name: After     #Fully Expanded Arguments: AfterRoutePredicateFactory
+              args:
+                datetime: 2022-07-25T11:23:19.175+08:00[Asia/Shanghai]
+#            - After=2025-07-25T11:23:19.175+08:00[Asia/Shanghai]
+            - CheckAuth=token,Bear      #自定义Predicate：CheckAuthRoutePredicateFactory
           filters:
             - StripPrefix=1
+#            - PrefixPath=/mypath
     nacos:
       discovery:
         server-addr: 43.138.208.107:8846
