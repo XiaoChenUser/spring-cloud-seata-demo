@@ -1,0 +1,19 @@
+server:
+  port: 10006
+spring:
+  application:
+    name: sentinel-gateway
+  cloud:
+    nacos:
+      server-addr: 43.138.208.107:8846
+      username: nacos
+      password: nacos
+    gateway:
+      routes:
+        - id: order-nacos-route
+          uri: lb://order-nacos
+          predicates:
+            - Path=/order/**
+    sentinel:
+      transport:
+        dashboard: localhost:8858

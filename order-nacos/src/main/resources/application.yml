@@ -1,0 +1,10 @@
+server:
+  port: 10007
+spring:
+  application:
+    name: order-nacos
+  cloud:
+    nacos:
+      server-addr: 43.138.208.107:8846
+      username: nacos
+      password: nacos

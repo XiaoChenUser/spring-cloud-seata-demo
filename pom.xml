@@ -12,6 +12,8 @@
         <module>alibaba-order-seata</module>
         <module>alibaba-stock-seata</module>
         <module>gateway</module>
+        <module>sentinel-gateway</module>
+        <module>order-nacos</module>
     </modules>
     <name>spring-cloud-seata-demo</name>
     <description>spring-cloud-seata-demo</description>
