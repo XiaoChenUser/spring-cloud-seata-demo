@@ -3,6 +3,8 @@ package com.example.stock.service.impl;
 import com.example.stock.mapper.StockMapper;
 import com.example.stock.service.StockService;
 import lombok.extern.java.Log;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.stereotype.Service;
 
 @Log
@@ -15,6 +17,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    @Trace
+    @Tag(key = "deduct", value = "returnedObj")
     public Boolean deduct(Integer productId, Integer amount) {
         Integer count = this.stockMapper.selectCount(productId);
         if (count == null || count < amount) {
@@ -23,5 +27,20 @@ public class StockServiceImpl implements StockService {
         }
         this.stockMapper.deduct(productId, amount);
         return true;
+    }
+
+    @Override
+    public Integer getStock(Integer productId) {
+        Integer count = this.stockMapper.selectCount(productId);
+        if (count == null) {
+            throw new RuntimeException("Illegal product id:" + productId);
+        }
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }

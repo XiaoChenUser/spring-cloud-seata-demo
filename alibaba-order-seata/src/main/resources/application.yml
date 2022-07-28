@@ -29,7 +29,7 @@ spring:
         password: nacos
 
 seata:
-  tx-service-group: GuangZhou123   #配置事务分组
+  tx-service-group: GuangZhou   #配置事务分组
   data-source-proxy-mode: AT    # default: AT 模式
   registry:
     #配置 seata 的注册中心，告诉 seata client 怎么连接 seata server(TC)
@@ -50,7 +50,7 @@ seata:
       group: SEATA_GROUP
       username: nacos
       password: nacos
-      data-id: "seataServer.properties"
+#      data-id: "seataServer.properties"
 
 mybatis:
   config-location: classpath:mybatis-config.xml
